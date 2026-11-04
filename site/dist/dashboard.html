@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>야외 실험 가능 시간</title>
+<style>
+:root{--bg:#fafaf7;--card:#fff;--ink:#1d1d1b;--sub:#6b6b66;--line:#e4e3dc;--accent:#1f7a4d;--soft:#e8f4ec;--bad:#c0392b;--badsoft:#fbeae8;--rain:#7aa7d9;--gust:#8a8a82}
+@media (prefers-color-scheme:dark){:root{--bg:#161614;--card:#1f1f1c;--ink:#ecebe5;--sub:#a3a29a;--line:#34342f;--accent:#5fc28c;--soft:#1f3a2b;--bad:#ff8a7a;--badsoft:#3a1f1b;--rain:#5b87bd;--gust:#a3a29a}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px 56px}
+h1{font-size:26px;line-height:1.35;margin:0 0 6px}
+h2{font-size:19px;margin:0 0 10px}
+.lead{color:var(--sub);margin:0 0 18px}
+.note{font-size:13.5px;color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.big{font-size:30px;font-weight:700;color:var(--accent);line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 20px}
+label{display:block;font-size:14px;color:var(--sub)}
+label b{color:var(--ink);font-size:16px;margin-left:6px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;white-space:nowrap}
+th{color:var(--sub);font-weight:600;font-size:13px}
+tr.ok td{background:var(--soft)}
+td.yes{color:var(--accent);font-weight:700}
+.err{background:var(--badsoft);color:var(--bad);border-radius:10px;padding:12px 14px;margin:12px 0}
+button{font:inherit;border:1px solid var(--accent);background:var(--card);color:var(--accent);border-radius:8px;padding:7px 12px;cursor:pointer;margin-top:6px}
+a{color:var(--accent)}
+footer{margin-top:28px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--sub);margin-bottom:6px}
+.legend i{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.legend i.fill{height:10px;border:0;background:var(--soft);outline:1px solid var(--line)}
+</style>
+</head>
+<body>
+<main>
+<h1>야외 실험 가능 시간</h1>
+<p class="lead">한국항공대학교 상공의 앞으로 7일 바람과 비 예보로, 내 기준에 맞는 시간을 찾아요.</p>
+
+<div id="err" class="err" role="alert" hidden>
+  <b>데이터를 받지 못했어요.</b> <span id="errWhy"></span><br>
+  <button id="retry" type="button">다시 받기</button>
+</div>
+
+<div class="card">
+  <div class="note">기준에 맞는 가장 긴 연속 시간대</div>
+  <div class="big" id="best">불러오는 중…</div>
+  <div class="note" id="bestMeta"></div>
+</div>
+
+<div class="card grid">
+  <div><label for="w">풍속 기준 (이보다 약하면 가능)<b id="wv"></b></label><input id="w" type="range" min="2" max="40" step="1" value="10"></div>
+  <div><label for="g">돌풍 기준 (이보다 약하면 가능)<b id="gv"></b></label><input id="g" type="range" min="4" max="60" step="1" value="20"></div>
+  <div><label for="p">비 기준 (시간당 강수가 이 값 이하면 가능)<b id="pv"></b></label><input id="p" type="range" min="0" max="2" step="0.1" value="0"></div>
+</div>
+
+<div class="card">
+  <div class="legend">
+    <span><i style="border-color:var(--accent)"></i>풍속</span>
+    <span><i style="border-color:var(--gust);border-top-style:dashed"></i>돌풍</span>
+    <span><i style="border-color:var(--rain)"></i>강수(막대)</span>
+    <span><i class="fill"></i>가능한 시간</span>
+  </div>
+  <div class="wrap"><svg id="chart" viewBox="0 0 900 260" width="100%" style="min-width:620px" role="img" aria-label="7일 시간별 풍속, 돌풍, 강수 그래프"></svg></div>
+  <div class="note">세로축 km/h (강수 막대는 높이만 비교용)</div>
+</div>
+
+<div class="card">
+  <h2>첫날 24시간 <span class="note" id="dayCount"></span></h2>
+  <div class="wrap">
+    <table>
+      <thead><tr><th>시각</th><th>풍속 km/h</th><th>돌풍 km/h</th><th>강수 mm</th><th>가능 여부</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>
+  <p class="note" id="meta"></p>
+  <p class="note">단위: 풍속·돌풍 km/h, 강수 mm(시간당). 시간대: Asia/Seoul.</p>
+  <p class="note">출처: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> 예보 API. 예보값이라 실제와 다를 수 있고, 「가능」 기준은 연습용이라 실제 비행·실험의 안전 판단 기준이 아니에요.</p>
+</footer>
+</main>
+
+<script>
+const CFG = { name: '한국항공대학교', lat: 37.600, lon: 126.865 };
+const API = 'https://api.open-meteo.com/v1/forecast?latitude=' + CFG.lat.toFixed(3) + '&longitude=' + CFG.lon.toFixed(3) +
+  '&hourly=wind_speed_10m,wind_gusts_10m,precipitation&forecast_days=7&timezone=Asia%2FSeoul' +
+  '&wind_speed_unit=kmh&precipitation_unit=mm';
+const KEYS = ['wind_speed_10m', 'wind_gusts_10m', 'precipitation'];
+const DAYS = ['일', '월', '화', '수', '목', '금', '토'];
+const $ = id => document.getElementById(id);
+let H = null, fetchedAt = '';
+
+function lab(t) {
+  const m = /^(\d+)-(\d+)-(\d+)T(\d+):/.exec(t);
+  const d = new Date(+m[1], +m[2] - 1, +m[3]);
+  return (+m[2]) + '/' + (+m[3]) + '(' + DAYS[d.getDay()] + ') ' + m[4] + '시';
+}
+function hourLab(t) { return t.slice(11, 13) + '시'; }
+function valid(d) {
+  return d && d.hourly && Array.isArray(d.hourly.time) && d.hourly.time.length > 0 &&
+    KEYS.every(k => Array.isArray(d.hourly[k]) && d.hourly[k].length === d.hourly.time.length &&
+      d.hourly[k].every(v => typeof v === 'number' && isFinite(v)));
+}
+function showError(why) {
+  H = null;
+  $('err').hidden = false;
+  $('errWhy').textContent = why ? '(' + why + ')' : '';
+  $('best').textContent = '데이터가 없어요';
+  $('bestMeta').textContent = '';
+  $('chart').textContent = '';
+  $('rows').textContent = '';
+  $('dayCount').textContent = '';
+  $('meta').textContent = '';
+}
+function draw() {
+  const w = +$('w').value, g = +$('g').value, p = +$('p').value;
+  $('wv').textContent = w + ' km/h';
+  $('gv').textContent = g + ' km/h';
+  $('pv').textContent = p.toFixed(1) + ' mm';
+  if (!H) return;
+  const n = H.time.length;
+  const flags = H.time.map((_, i) => H.wind_speed_10m[i] < w && H.wind_gusts_10m[i] < g && H.precipitation[i] <= p + 1e-9);
+
+  let best = { len: 0, start: 0 }, cur = 0, st = 0;
+  flags.forEach((f, i) => {
+    if (f) { if (!cur) st = i; cur++; if (cur > best.len) best = { len: cur, start: st }; }
+    else cur = 0;
+  });
+  const total = flags.filter(Boolean).length;
+  if (!best.len) {
+    $('best').textContent = '이번 7일에는 가능한 시간이 없어요';
+    $('bestMeta').textContent = '기준을 조금 넓혀 보세요.';
+  } else {
+    const a = best.start, b = a + best.len - 1;
+    $('best').textContent = lab(H.time[a]) + '부터 ' + best.len + '시간';
+    $('bestMeta').textContent = '끝: ' + lab(H.time[b]) + ' · 7일 전체 가능 ' + total + '시간';
+  }
+
+  const W = 900, Ht = 260, L = 40, R = 10, T = 12, B = 34;
+  const max = Math.max(30, ...H.wind_gusts_10m) * 1.05;
+  const x = i => L + i / (n - 1) * (W - L - R);
+  const y = v => T + (1 - v / max) * (Ht - T - B);
+  const bw = (W - L - R) / n;
+  let s = '';
+  flags.forEach((f, i) => { if (f) s += '<rect x="' + (x(i) - bw / 2) + '" y="' + T + '" width="' + bw + '" height="' + (Ht - T - B) + '" fill="var(--soft)"/>'; });
+  for (let v = 0; v <= max; v += 10) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)"/><text x="' + (L - 6) + '" y="' + (y(v) + 4) + '" font-size="11" text-anchor="end" fill="var(--sub)">' + v + '</text>';
+  H.time.forEach((t, i) => { if (t.slice(11, 13) === '00') s += '<line x1="' + x(i) + '" x2="' + x(i) + '" y1="' + T + '" y2="' + (Ht - B) + '" stroke="var(--line)"/><text x="' + (x(i) + 4) + '" y="' + (Ht - 14) + '" font-size="11" fill="var(--sub)">' + lab(t).replace(/ \d+시$/, '') + '</text>'; });
+  H.precipitation.forEach((v, i) => { if (v > 0) { const h = Math.min(v * 20, 80); s += '<rect x="' + (x(i) - bw / 2) + '" y="' + (Ht - B - h) + '" width="' + bw + '" height="' + h + '" fill="var(--rain)"/>'; } });
+  const line = arr => arr.map((v, i) => x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(' ');
+  s += '<polyline points="' + line(H.wind_gusts_10m) + '" fill="none" stroke="var(--gust)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+  s += '<polyline points="' + line(H.wind_speed_10m) + '" fill="none" stroke="var(--accent)" stroke-width="2.5"/>';
+  $('chart').innerHTML = s; // 숫자와 고정 문자열만 들어감 (API 문자열은 lab()로 정규식 숫자만 추출)
+
+  const tb = $('rows');
+  tb.textContent = '';
+  let dc = 0;
+  for (let i = 0; i < 24 && i < n; i++) {
+    const f = flags[i];
+    if (f) dc++;
+    const tr = document.createElement('tr');
+    if (f) tr.className = 'ok';
+    [hourLab(H.time[i]), H.wind_speed_10m[i].toFixed(1), H.wind_gusts_10m[i].toFixed(1), H.precipitation[i].toFixed(1), f ? '가능' : '불가'].forEach((c, k) => {
+      const td = document.createElement('td');
+      td.textContent = c;
+      if (k === 4 && f) td.className = 'yes';
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  }
+  $('dayCount').textContent = '· 첫날(' + lab(H.time[0]).replace(/ \d+시$/, '') + ') 가능 시간 ' + dc + '시간';
+  $('meta').textContent = CFG.name + ' (' + CFG.lat.toFixed(3) + ', ' + CFG.lon.toFixed(3) + ') · 데이터 받은 시각 ' + fetchedAt + ' · 시간 ' + n + '개';
+}
+async function load() {
+  $('err').hidden = true;
+  $('best').textContent = '불러오는 중…';
+  try {
+    const r = await fetch(API);
+    if (!r.ok) throw new Error('응답 ' + r.status);
+    const d = await r.json();
+    if (!valid(d)) throw new Error('응답 형식이 달라요');
+    H = d.hourly;
+    fetchedAt = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }) + ' (한국 시간)';
+    draw();
+  } catch (e) {
+    showError(e.message === 'Failed to fetch' ? '인터넷 연결을 확인해 주세요' : e.message);
+  }
+}
+['w', 'g', 'p'].forEach(id => $(id).addEventListener('input', draw));
+$('retry').addEventListener('click', load);
+draw();
+load();
+</script>
+</body>
+</html>

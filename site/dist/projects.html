@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>연구·과제 | 백현진</title>
+<meta name="description" content="소프트 그리퍼, 베어링 잔여수명 예측, 볼 스크류 정형 장비 등 연구와 과제">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="index.html">백현진</a>
+  <nav class="top" aria-label="주 메뉴">
+    <a href="index.html">홈</a>
+    <a href="ball-screw.html">대표 연구</a>
+    <a href="projects.html" aria-current="page">연구·과제</a>
+    <a href="publications.html">논문·발표</a>
+    <a href="works.html">작업물</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <h1>연구·과제</h1>
+  <p class="sub">대표 연구(볼 스크류 가압 위치)는 <a href="ball-screw.html">따로 정리</a>했습니다. 아래 카드의 「자세히」를 누르면 한 일과 수치가 펼쳐집니다.</p>
+
+  <h2>연구</h2>
+
+  <section class="card" id="gripper">
+    <h3>소프트 그리퍼 핑거의 적응형 모드 전환 설계 <span class="badge">투고 준비 중 · 초안 기준, 확정 전</span></h3>
+    <p class="when sub">2025 ~ 진행 중 · 석사 연구</p>
+    <p>물체의 크기와 강성에 맞춰 파지 모드 전환 시점을 바꾸는 Fin Ray 기반 그리퍼 핑거를 설계하고, 유한요소해석과 실험으로 구조를 다듬었습니다. 전기 센서나 능동 제어 없이 구조의 기계적 반응만으로 전환하는 방식입니다. 디지털 트윈 기반 설계·시뮬레이션도 병행했습니다.</p>
+    <div class="stats">
+      <div class="stat"><b>5.63배</b><span>기존 Fin Ray 핑거 대비 접촉력 (평균)</span></div>
+      <div class="stat"><b>94 %</b><span>핑거 끝 변위 유지</span></div>
+    </div>
+    <details><summary>자세히</summary>
+      <ul class="plain">
+        <li>핑거 안에 한쪽 끝이 떨어진 립(rib) 3개(a, b, c)를 두어, 접촉하면서 순서대로 맞물리며 파지 모드 4개가 만들어지게 했습니다.</li>
+        <li>외부 브라켓이 물체의 크기를, 안쪽 Y형 립이 물체의 강성을 구조 변형으로 감지해 모드 전환 시점을 앞당기도록 구성했습니다.</li>
+        <li>립의 곡률·길이·두께 등 설계 변수를 바꿔 가며 ANSYS로 접촉력과 핑거 변형을 반복 해석하고, 3D 프린팅(TPU) 시제품을 만들어 해석과 실험의 차이를 설계에 다시 반영했습니다.</li>
+        <li>접촉력 5.63배와 변위 94 %는 물체 3가지 조건의 평균이며, 조건마다 3회 시험했습니다.</li>
+        <li>크기 감지: 브라켓 각도 25°·30°에서 물체 지름(30·37.5·45 mm)이 클수록 립 a가 일찍 맞물렸습니다. 20°에서는 뚜렷한 경향이 없었고, 립 c는 편차가 커 경향이 뚜렷하지 않았습니다.</li>
+        <li>강성 감지: 립 b가 맞물리는 시점이 1 mm TPU 7.20 s, 2 mm TPU 5.16 s, PLA 4.18 s로 물체가 단단할수록 앞당겨졌습니다 (최대 3.02 s 앞당김, 표준편차 0.23 s 미만). 0.5 mm TPU는 감지 범위 밖이었습니다.</li>
+        <li>디지털 트윈(MPM) 시뮬레이션이 립 a, b, c가 차례로 맞물리는 순서와 모드 4개의 전환을 재현했습니다. 립 a 맞물림 시점은 실험과 0.02 mm 차이였고, 립 b는 1.53 mm 일찍, 립 c는 1.36 mm 늦게 맞물렸습니다.</li>
+        <li>학회 발표 3건 (ICCAIS 2025 공저, 항공우주시스템공학회 2026 춘계, 한국정밀공학회 2026 춘계). 저널 논문은 투고 준비 중입니다.</li>
+      </ul>
+      <p class="note">위 수치는 투고 준비 중인 논문 초안 기준이며 바뀔 수 있습니다.</p>
+    </details>
+  </section>
+
+  <section class="card" id="challenge">
+    <h3>KSPHM-KIMM 데이터 챌린지 대상: 베어링 잔여수명 예측</h3>
+    <p class="when sub">2025.04.14 ~ 2025.06.24 (71일)</p>
+    <p>팀원으로 건전성 지표 기반 회귀 모델 개발을 주도하고, 학회 발표자료를 작성해 팀 대표로 구두 발표했습니다.</p>
+    <div class="stats">
+      <div class="stat"><b>61개 팀 중 1위</b><span>대상</span></div>
+      <div class="stat"><b>30 % 내외</b><span>유형을 나누기 전 단일 회귀모델 정확도</span></div>
+    </div>
+    <details><summary>자세히</summary>
+      <ul class="plain">
+        <li>진동 신호의 특성인자로 만든 단일 회귀모델의 정확도가 30 % 내외에 머물자, 모델을 덧붙이는 대신 데이터별 RMS 거동과 전체 수명이 다른 원인부터 다시 살폈습니다.</li>
+        <li>그 차이를 결함 형태와 심각도의 차이로 정의하고, 학습 데이터가 3가지 유형으로 나뉨을 확인했습니다.</li>
+        <li>초기 구간의 Kurtosis 이상치를 결함 발생 횟수와 수준으로 정량화해, 초기 데이터만으로 유형을 가르는 기준을 만들었습니다.</li>
+        <li>점진적으로 열화하는 유형은 결함 주파수 성분과 RMS를 합친 건전성 지표 기반 회귀로, 초기 추세만으로 예측이 어려운 유형은 Kurtosis 기반 지표를 입력으로 하는 비선형 회귀로 수명(EOL)을 직접 예측했습니다.</li>
+        <li>Python과 MATLAB으로 신호처리, 특징 추출, 유형 판별, 예측을 구현하고 KIMM 데이터와 FEMTO 데이터로 성능을 검증했습니다.</li>
+        <li>PHM Korea 2025 학회에서 팀 대표로 구두 발표했습니다.</li>
+      </ul>
+    </details>
+  </section>
+
+  <h2>과제</h2>
+
+  <section class="card" id="press">
+    <h3>Ball screw용 IoT 기반 스마트 정형 장비 시스템 개발 <span class="badge ok">산학 과제</span></h3>
+    <p class="when sub">2024.02 ~ 2024.11 (10개월)</p>
+    <p>실제 정형 장비를 3D 모델링하고 ANSYS Mechanical로 해석해 스트로크 계산식을 보정했습니다. 해석에서 목표 소성변형이 나오지 않는 원인을 규명해 협력업체의 설비 개선을 이끌었습니다.</p>
+    <div class="stats">
+      <div class="stat"><b>10개월</b><span>개발 기간, 현장 방문 검증 실험(2일 출장)</span></div>
+    </div>
+    <details><summary>자세히</summary>
+      <ul class="plain">
+        <li>실험실 데이터로 만든 계산식을 실장비에 적용했을 때 해석에서 목표 소성변형이 나오지 않자, 계산식을 반복 수정하는 대신 실장비 조건을 다시 확인해 지지대 반력이 부족하다는 원인을 규명했습니다.</li>
+        <li>설비를 개선한 뒤에도 해석 결과만으로 계산식을 확정하지 않고, 현장을 방문해 실장비에서 스트로크-소성변형 데이터를 확보했습니다. 계산식의 구조는 유지하고 계수만 다시 맞췄습니다.</li>
+        <li>스트로크 계산식의 계수 최적화 알고리즘(MATLAB 코드·실행파일)과 알고리즘 실행 프로그램을 직접 개발했습니다. PLC 연동 프로그램은 외주였습니다.</li>
+        <li>외주 업체 후보를 직접 찾아 비교해 지도교수에게 제안했고, 서버에 저장된 데이터 항목과 작업자 PC의 Excel 저장 형식을 맞춘 자료를 만들어 주관기관과 외주 업체에 전달하며 요구사항을 조율했습니다.</li>
+        <li>실무 연구 인력이 없어 해석부터 현장 검증, 외부 업체 협업까지 주도했습니다.</li>
+      </ul>
+      <p><b>정형 결과</b> <span class="note">(과제 보고서 기준, 과제 전체 성과)</span></p>
+      <ul class="plain">
+        <li>시뮬레이션으로 구한 최적 가압 위치를 적용하면 진직도 교정 에러(교정 후 진직도 / 교정 전 진직도, 작을수록 우수)가 최대 처짐 지점을 가압할 때보다 낮았습니다. 처짐 150 μm에서 0.169 → 0.156, 처짐 100 μm에서 0.430 → 0.278입니다.</li>
+        <li>무빙 앤빌은 스트로크를 13 mm까지 올려도 소성변형이 150 μm에 못 미쳤고, 고정 앤빌에서는 200 μm가 나와 무빙 앤빌을 고정 앤빌로 교체하기로 결정했습니다.</li>
+        <li>중간 고정 앤빌이 양 끝보다 1 mm 낮은 조건의 해석에서 소성변형량이 최소 5배 이상 달라져, 스트로크 계산식 업데이트의 필요성을 확인했습니다.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="card" id="space">
+    <h3>우주 활용을 고려한 다 환경 무인 모빌리티 설계자동화 과제</h3>
+    <p class="when sub">2025.07 ~ 2025.12 (6개월)</p>
+    <p>소프트 그리퍼의 가상화(Isaac Sim) 연구를 지원하고 그리퍼 도메인 지식을 자문했습니다.</p>
+    <details><summary>자세히</summary>
+      <ul class="plain">
+        <li>CATIA 모델 하나를 URDF로 변환했고, 변환 매뉴얼을 써서 이후에도 참고할 수 있도록 전달했습니다.</li>
+        <li>소재 물성을 시뮬레이션에 구현했습니다.</li>
+        <li>디지털 트윈으로 그리퍼 핑거 구조를 최적화하는 방법론을 검토했습니다.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="card" id="ensip">
+    <h3>ENSIP 규격분석 및 Master Plan(안) 수립 과제</h3>
+    <p class="when sub">2025.01 ~ 2026.12</p>
+    <p>ENSIP(Engine Structural Integrity Program) Master Plan 문서의 번역·재구성, 회의 준비와 회의록 작성을 지원했습니다. 문서 전체를 번역·재구성했고 매달 정기 회의 진행을 준비했습니다.</p>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>이 페이지는 Claude Code와 함께 만들었고 내용은 본인이 확인했다</p>
+</div></footer>
+</body>
+</html>

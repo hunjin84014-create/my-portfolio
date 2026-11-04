@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>열처리 볼 스크류 가압 위치 결정 | 백현진</title>
+<meta name="description" content="열처리 볼 스크류 3점 굽힘 교정에서 가압 위치를 휨 형상에 따라 정하는 연구">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="index.html">백현진</a>
+  <nav class="top" aria-label="주 메뉴">
+    <a href="index.html">홈</a>
+    <a href="ball-screw.html" aria-current="page">대표 연구</a>
+    <a href="projects.html">연구·과제</a>
+    <a href="publications.html">논문·발표</a>
+    <a href="works.html">작업물</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="kicker">대표 연구</div>
+  <h1>열처리 볼 스크류 3점 굽힘 교정에서 가압 위치 결정</h1>
+  <p class="sub">2024.04 첫 학회 발표 ~ 2026.09 저널 게재 · 제1저자</p>
+
+  <h2>연구 질문</h2>
+  <p>부분 열처리로 휜 볼 스크류를 3점 굽힘으로 펼 때, 늘 가장 많이 휜 지점을 누르는 것이 최선인가? 휨 모양에 따라 누르는 위치를 바꾸면 1회 가압으로 더 잘 펴지는가?</p>
+
+  <h2>내가 한 일</h2>
+  <ul class="plain">
+    <li>휨 형상에 따라 가압 위치를 바꾸는 전략을 제안했습니다.</li>
+    <li>유한요소해석으로 최적 가압 위치를 구했습니다. 해석 조건은 지지 간격 200 mm, 처짐 위치 오프셋 20·40 mm, 최대 처짐 50~200 μm입니다.</li>
+    <li>실험으로 검증했고, 검증용 가압·측정 시스템을 직접 구축했습니다. 표준 시편 기반 보정으로 계통오차를 제거해 마이크로미터 단위 측정 신뢰성을 확보했습니다.</li>
+    <li>이 연구로 제1저자 논문을 냈습니다.</li>
+  </ul>
+
+  <h2>알아낸 것</h2>
+  <ul class="plain">
+    <li>최적 가압 위치는 최대 처짐 지점과 늘 같지 않고 휨의 비대칭에 따라 달라집니다.</li>
+    <li>기존 방식(최대 처짐 지점 가압) 대비 교정 오차가 <b>22.39 %</b>, 최종 진직도가 <b>16.79 %</b> 줄었습니다.</li>
+    <li>목표 기준(교정 에러 0.4 미만, 최종 진직도 40 μm 미만)을 1회 가압으로 만족한 시편이 <b>40 %에서 80 %로</b> 늘었습니다.</li>
+    <li>가압 횟수·시간·에너지도 줄었습니다.</li>
+  </ul>
+
+  <div class="card">
+    <svg class="fig" viewBox="0 0 380 170" role="img" aria-labelledby="t1">
+      <title id="t1">목표 기준을 1회 가압으로 만족한 시편 비율: 최대 처짐 지점 가압 40 %, 최적 위치 가압 80 %</title>
+      <text x="0" y="16" font-size="14" font-weight="700">목표 기준을 1회 가압으로 만족한 시편 비율</text>
+      <text x="0" y="46" font-size="14">최대 처짐 지점 가압</text>
+      <rect class="bar" x="0" y="54" width="120" height="22" rx="3"/>
+      <text x="128" y="71" font-size="15" font-weight="700">40 %</text>
+      <text x="0" y="104" font-size="14">최적 위치 가압</text>
+      <rect class="bar main" x="0" y="112" width="240" height="22" rx="3"/>
+      <text x="248" y="129" font-size="15" font-weight="700">80 %</text>
+      <text class="sub" x="0" y="160" font-size="11">막대 길이는 비율에 비례 (전체 300 = 100 %) · 출처: 게재 논문 본문</text>
+    </svg>
+  </div>
+  <div class="card">
+    <svg class="fig" viewBox="0 0 380 170" role="img" aria-labelledby="t2">
+      <title id="t2">기존 방식 대비 감소율: 교정 오차 22.39 %, 최종 진직도 16.79 %</title>
+      <text x="0" y="16" font-size="14" font-weight="700">기존 방식(최대 처짐 지점 가압) 대비 감소율</text>
+      <text x="0" y="46" font-size="14">교정 오차</text>
+      <rect class="bar main" x="0" y="54" width="224" height="22" rx="3"/>
+      <text x="232" y="71" font-size="15" font-weight="700">22.39 %</text>
+      <text x="0" y="104" font-size="14">최종 진직도</text>
+      <rect class="bar main" x="0" y="112" width="168" height="22" rx="3"/>
+      <text x="176" y="129" font-size="15" font-weight="700">16.79 %</text>
+      <text class="sub" x="0" y="160" font-size="11">막대 길이는 감소율에 비례 (전체 300 = 30 %, 평균값) · 출처: 게재 논문 결론</text>
+    </svg>
+  </div>
+
+  <h2>다음 할 것</h2>
+  <p>더 넓은 교정 조건과 다른 볼 스크류 형상으로 적용 범위를 넓힙니다. <span class="note">(논문의 한계 문단 기준)</span></p>
+
+  <h2>논문 정보</h2>
+  <div class="card">
+    <p>제1저자 · <i>Journal of Mechanical Science and Technology</i> 40(9) (2026) 6627–6639 · SCIE (IF 2.2)</p>
+    <p class="sub">투고 2025.09, 게재 승인 2026.05. 같은 연구를 ICMPT 2025(인도네시아 발리)와 한국기계가공학회 2024 춘계학술대회(광주)에서도 발표했습니다.</p>
+    <div class="btns"><a class="btn" href="https://doi.org/10.1007/s12206-026-0827-3" target="_blank" rel="noopener">논문 DOI</a><a class="btn" href="publications.html">논문·발표 목록</a></div>
+  </div>
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>이 페이지는 Claude Code와 함께 만들었고 내용은 본인이 확인했다</p>
+</div></footer>
+</body>
+</html>
