@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>작업물 | 백현진</title>
-<meta name="description" content="야외 실험을 할 수 있는 시간을 찾아 주는 대시보드">
+<meta name="description" content="연구와 과제에서 직접 만든 프로그램, 측정 시스템, 시제품, 매뉴얼">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -20,20 +20,50 @@
 </div></header>
 
 <main class="wrap">
-  <h1>야외 실험 가능 시간 대시보드</h1>
-  <p class="sub">한국항공대학교 상공의 앞으로 7일 풍속·돌풍·강수 예보에서, 내 기준에 맞는 시간을 찾아 주는 화면입니다.</p>
+  <h1>작업물</h1>
+  <p class="sub">연구와 과제에서 직접 만든 것들입니다. 한 일과 수치는 각 연구 설명에 있습니다. 이 페이지는 만든 것의 설명이고, 프로그램이나 시제품 파일은 올려 두지 않았습니다.</p>
 
-  <ul class="plain">
-    <li>「가능」 기준(풍속 10 km/h 미만, 돌풍 20 km/h 미만, 비 없음)을 슬라이더 3개로 바꿀 수 있습니다.</li>
-    <li>맨 위에 기준에 맞는 가장 긴 연속 시간대를 크게 보이고, 7일 그래프에 가능한 시간을 칠합니다.</li>
-    <li>첫날 24시간 표에 시각별 풍속·돌풍·강수와 가능 여부를 보입니다.</li>
-    <li>데이터는 Open-Meteo 예보 API에서 브라우저가 직접 받고, 받지 못하면 「데이터를 받지 못했어요」를 보입니다.</li>
-  </ul>
-  <p class="note">예보값이라 실제와 다를 수 있고, 「가능」 기준은 연습용이라 실제 비행·실험의 안전 판단 기준이 아닙니다. 인터넷에 연결되어 있어야 데이터를 받을 수 있습니다.</p>
+  <section class="card">
+    <h3>스트로크 계수 최적화 프로그램</h3>
+    <p class="when sub">Ball screw용 IoT 기반 스마트 정형 장비 시스템 개발 · 2024.02 ~ 2024.11</p>
+    <p>현장에서 모은 스트로크-소성변형 데이터로 스트로크 계산식의 계수를 다시 맞추는 알고리즘(MATLAB 코드)과 실행파일, 그리고 알고리즘 실행 프로그램을 직접 개발했습니다. 계산식의 구조는 유지하고 계수만 갱신하는 방식입니다. PLC 연동 프로그램은 외주였습니다.</p>
+    <p><a href="projects.html#press">과제 설명 보기</a></p>
+  </section>
 
-  <div class="btns" style="margin:12px 0 16px"><a class="btn" href="dashboard.html" target="_blank" rel="noopener">새 창에서 열기</a></div>
+  <section class="card">
+    <h3>볼 스크류 가압·측정 시스템</h3>
+    <p class="when sub">열처리 볼 스크류 가압 위치 결정 연구</p>
+    <p>최적 가압 위치를 실험으로 검증하기 위해 가압·측정 시스템을 직접 구축했습니다. 표준 시편 기반 보정으로 계통오차를 제거해 마이크로미터 단위 측정 신뢰성을 확보했습니다.</p>
+    <p><a href="ball-screw.html">대표 연구 보기</a></p>
+  </section>
 
-  <iframe class="frame" src="dashboard.html" title="야외 실험 가능 시간 대시보드"></iframe>
+  <section class="card">
+    <h3>소프트 그리퍼 핑거 시제품과 시뮬레이션 <span class="badge">투고 준비 중</span></h3>
+    <p class="when sub">소프트 그리퍼 핑거의 적응형 모드 전환 설계 · 2025 ~ 진행 중</p>
+    <p>립 3개가 순서대로 맞물려 파지 모드 4개를 만드는 핑거를 설계하고, 3D 프린팅(TPU) 시제품을 만들어 시험했습니다. 디지털 트윈 기반 설계·시뮬레이션을 병행했습니다.</p>
+    <p><a href="projects.html#gripper">연구 설명 보기</a></p>
+  </section>
+
+  <section class="card">
+    <h3>베어링 잔여수명 예측 코드</h3>
+    <p class="when sub">KSPHM-KIMM 데이터 챌린지 · 2025.04 ~ 2025.06</p>
+    <p>Python과 MATLAB으로 신호처리, 특징 추출, 열화 유형 판별, 수명 예측을 구현했습니다. 이 코드로 KIMM 데이터와 FEMTO 데이터에서 성능을 검증했습니다.</p>
+    <p><a href="projects.html#challenge">연구 설명 보기</a></p>
+  </section>
+
+  <section class="card">
+    <h3>CATIA-URDF 변환 매뉴얼</h3>
+    <p class="when sub">우주 활용을 고려한 다 환경 무인 모빌리티 설계자동화 과제 · 2025.07 ~ 2025.12</p>
+    <p>소프트 그리퍼의 Isaac Sim 가상화 연구를 지원하며 CATIA 모델 하나를 URDF로 변환했습니다. 변환 매뉴얼을 써서 이후에도 참고할 수 있도록 전달했습니다.</p>
+    <p><a href="projects.html#space">과제 설명 보기</a></p>
+  </section>
+
+  <section class="card">
+    <h3>게재 논문</h3>
+    <p class="when sub">Journal of Mechanical Science and Technology 40(9) · 제1저자</p>
+    <p>열처리 볼 스크류 3점 굽힘 교정에서 가압 위치를 정하는 연구를 저널 논문으로 냈습니다.</p>
+    <div class="btns"><a class="btn" href="https://doi.org/10.1007/s12206-026-0827-3" target="_blank" rel="noopener">논문 DOI</a><a class="btn" href="publications.html">논문·발표 목록</a></div>
+  </section>
 </main>
 
 <footer class="site"><div class="wrap">
